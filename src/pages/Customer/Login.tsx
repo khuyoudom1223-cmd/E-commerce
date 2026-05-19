@@ -244,7 +244,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onNavigate }) => {
             </span>
           ) : (
             <span>
-              New to SleekCart?{' '}
+              New to Dom Store?{' '}
               <button 
                 onClick={() => { setIsRegister(true); setError(null); }}
                 className="font-bold text-emerald-500 hover:underline"
