@@ -39,6 +39,16 @@
       "phone": "+855 12 345 678",
       "avatarUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
       "createdAt": "2026-05-19T07:50:56.700Z"
+    },
+    {
+      "id": "usr_mgge4r7ga",
+      "name": " cghvjbkn",
+      "email": "chvjbhknjkm@gmail.com",
+      "passwordHash": "pbkdf2_custom",
+      "role": "customer",
+      "phone": "0987654345",
+      "avatarUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
+      "createdAt": "2026-05-19T08:48:10.922Z"
     }
   ],
   "vendors": [
@@ -148,7 +158,13 @@
     }
   ],
   "productImages": [],
-  "carts": [],
+  "carts": [
+    {
+      "id": "crt_bpcgxxqo2",
+      "userId": "usr_mgge4r7ga",
+      "quantity": 2
+    }
+  ],
   "orders": [
     {
       "userId": "6a0be180a149a7037437c84a",
