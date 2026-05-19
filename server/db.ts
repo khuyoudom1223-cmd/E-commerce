@@ -298,6 +298,26 @@ class Database {
       if (fs.existsSync(DB_PATH)) {
         const fileContent = fs.readFileSync(DB_PATH, 'utf-8');
         this.data = JSON.parse(fileContent);
+        
+        // Ensure every item in loaded fallback collections has a valid id field
+        const tables: Array<keyof DatabaseSchema> = [
+          'users', 'vendors', 'products', 'categories', 'productImages',
+          'carts', 'orders', 'orderItems', 'payments', 'riders',
+          'deliveries', 'deliveryTracking', 'coupons', 'notifications',
+          'reviews', 'wishlists'
+        ];
+        
+        for (const table of tables) {
+          if (Array.isArray(this.data[table])) {
+            this.data[table] = this.data[table].map((item: any) => {
+              if (!item.id) {
+                const prefix = table.substring(0, 3);
+                item.id = this.generateId(prefix);
+              }
+              return item;
+            }) as any;
+          }
+        }
       } else {
         this.data = this.getEmptySchema();
         this.saveLocal();
