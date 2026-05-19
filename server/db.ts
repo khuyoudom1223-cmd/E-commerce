@@ -276,7 +276,10 @@ class Database {
             const docs = await this.dbInstance.collection(table).find({}).toArray();
             this.data[table] = docs.map((doc: any) => {
               const { _id, ...rest } = doc;
-              return rest;
+              return {
+                id: rest.id || (_id ? _id.toString() : ''),
+                ...rest
+              };
             }) as any;
           } else {
             this.data[table] = [];
