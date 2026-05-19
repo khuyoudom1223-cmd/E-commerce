@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { MongoClient, Db } from 'mongodb';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -194,6 +195,8 @@ export interface DatabaseSchema {
 
 class Database {
   private data: DatabaseSchema;
+  private mongoDb: Db | null = null;
+  private isSaving = false;
 
   constructor() {
     this.data = this.getEmptySchema();
@@ -221,6 +224,48 @@ class Database {
     };
   }
 
+  // Connect to MongoDB and synchronize collections
+  public async connectMongo(): Promise<void> {
+    try {
+      const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/domstore';
+      console.log(`Connecting to MongoDB at: ${MONGO_URI}...`);
+      const client = new MongoClient(MONGO_URI);
+      await client.connect();
+      this.mongoDb = client.db();
+      console.log('MongoDB connected successfully!');
+
+      // Synchronize/load collections from MongoDB
+      const collections = await this.mongoDb.listCollections().toArray();
+      const collectionNames = collections.map(c => c.name);
+
+      const schemaKeys = Object.keys(this.getEmptySchema()) as Array<keyof DatabaseSchema>;
+
+      for (const key of schemaKeys) {
+        if (collectionNames.includes(key)) {
+          // Collection exists, load data from it
+          const docs = await this.mongoDb.collection(key).find({}).toArray();
+          // Map _id away if present, keep standard schema
+          this.data[key] = docs.map(doc => {
+            const { _id, ...rest } = doc;
+            return rest as any;
+          });
+          console.log(`Loaded ${this.data[key].length} items for collection '${key}' from MongoDB.`);
+        } else {
+          // Collection doesn't exist yet, seed it if we have local memory data
+          if (this.data[key].length > 0) {
+            console.log(`Creating and seeding collection '${key}' in MongoDB with ${this.data[key].length} items...`);
+            await this.mongoDb.collection(key).insertMany(this.data[key]);
+          }
+        }
+      }
+      // Re-save local database to reflect MongoDB sync state
+      this.saveLocal();
+    } catch (err) {
+      console.error('Error connecting to MongoDB, falling back to local database file', err);
+      throw err;
+    }
+  }
+
   // Load database from file
   public load(): void {
     try {
@@ -238,8 +283,13 @@ class Database {
     }
   }
 
-  // Save database to file
+  // Save database to file and MongoDB
   public save(): void {
+    this.saveLocal();
+    this.saveMongo();
+  }
+
+  private saveLocal(): void {
     try {
       // Ensure directory exists
       const dir = path.dirname(DB_PATH);
@@ -249,6 +299,26 @@ class Database {
       fs.writeFileSync(DB_PATH, JSON.stringify(this.data, null, 2), 'utf-8');
     } catch (err) {
       console.error('Error saving database to file', err);
+    }
+  }
+
+  private async saveMongo(): Promise<void> {
+    if (!this.mongoDb || this.isSaving) return;
+    this.isSaving = true;
+    try {
+      const schemaKeys = Object.keys(this.data) as Array<keyof DatabaseSchema>;
+      for (const key of schemaKeys) {
+        const collection = this.mongoDb.collection(key);
+        // Replace all documents in the collection to match local cache state
+        await collection.deleteMany({});
+        if (this.data[key].length > 0) {
+          await collection.insertMany(this.data[key]);
+        }
+      }
+    } catch (err) {
+      console.error('Error synchronizing database to MongoDB', err);
+    } finally {
+      this.isSaving = false;
     }
   }
 

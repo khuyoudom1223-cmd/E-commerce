@@ -1600,9 +1600,23 @@ process.on('SIGINT', () => {
 });
 
 // --- RUN THE APPLICATION ---
-app.listen(PORT, () => {
-  console.log(`========================================`);
-  console.log(` SleekCart backend operational on PORT ${PORT}`);
-  console.log(` Real-time GPS Tracker simulation armed.`);
-  console.log(`========================================`);
-});
+db.connectMongo()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`========================================`);
+      console.log(` Dom Store backend operational on PORT ${PORT}`);
+      console.log(` Connected to MongoDB successfully.`);
+      console.log(` Real-time GPS Tracker simulation armed.`);
+      console.log(`========================================`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to connect to MongoDB, falling back to local file DB.', err);
+    app.listen(PORT, () => {
+      console.log(`========================================`);
+      console.log(` Dom Store backend operational on PORT ${PORT}`);
+      console.log(` Connected to fallback local database.`);
+      console.log(` Real-time GPS Tracker simulation armed.`);
+      console.log(`========================================`);
+    });
+  });
