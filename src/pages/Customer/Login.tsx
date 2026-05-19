@@ -222,36 +222,6 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onNavigate }) => {
           </button>
         </form>
 
-        {/* Divider line for Google/Facebook Sign Ins */}
-        {!isForgot && (
-          <>
-            <div className="flex items-center gap-3 my-5">
-              <span className="h-[1px] bg-slate-200 dark:bg-slate-800/80 flex-grow" />
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Or Continue With</span>
-              <span className="h-[1px] bg-slate-200 dark:bg-slate-800/80 flex-grow" />
-            </div>
-
-            {/* Social Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => handleSocial('google')}
-                className="py-2.5 px-3 rounded-2xl border border-slate-200 dark:border-slate-800/60 bg-white/40 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all"
-              >
-                <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?auto=format&fit=crop&w=40&q=80" alt="G" className="w-4 h-4 rounded-full object-cover" />
-                Google
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSocial('facebook')}
-                className="py-2.5 px-3 rounded-2xl border border-slate-200 dark:border-slate-800/60 bg-white/40 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all"
-              >
-                <img src="https://images.unsplash.com/photo-1627843563095-f6e94f7d9045?auto=format&fit=crop&w=40&q=80" alt="F" className="w-4 h-4 rounded-full object-cover" />
-                Facebook
-              </button>
-            </div>
-          </>
-        )}
 
         {/* Footer Navigation (Switch Forms) */}
         <div className="text-center mt-6 pt-5 border-t border-slate-100 dark:border-slate-800/60 text-xs text-slate-500 dark:text-slate-400">
