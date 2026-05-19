@@ -1,4 +1,4 @@
-import { Model, Document, FilterQuery, UpdateQuery, QueryOptions } from 'mongoose';
+import mongoose, { Model, Document } from 'mongoose';
 
 /**
  * Standard repository contract representing CRUD operations.
@@ -6,9 +6,9 @@ import { Model, Document, FilterQuery, UpdateQuery, QueryOptions } from 'mongoos
 export interface IBaseRepository<T extends Document> {
   create(item: Partial<T>): Promise<T>;
   findById(id: string, populate?: string | string[]): Promise<T | null>;
-  findOne(filter: FilterQuery<T>, populate?: string | string[]): Promise<T | null>;
-  find(filter: FilterQuery<T>, options?: QueryOptions, populate?: string | string[]): Promise<T[]>;
-  update(id: string, updateQuery: UpdateQuery<T>): Promise<T | null>;
+  findOne(filter: any, populate?: string | string[]): Promise<T | null>;
+  find(filter: any, options?: any, populate?: string | string[]): Promise<T[]>;
+  update(id: string, updateQuery: any): Promise<T | null>;
   delete(id: string): Promise<boolean>;
 }
 
@@ -44,7 +44,7 @@ export class BaseRepository<T extends Document> implements IBaseRepository<T> {
   /**
    * Find a single document matching a query filter
    */
-  public async findOne(filter: FilterQuery<T>, populate?: string | string[]): Promise<T | null> {
+  public async findOne(filter: any, populate?: string | string[]): Promise<T | null> {
     const query = this.model.findOne(filter);
     if (populate) {
       query.populate(populate as any);
@@ -56,8 +56,8 @@ export class BaseRepository<T extends Document> implements IBaseRepository<T> {
    * Find multiple documents matching a query filter with sorting/paging options
    */
   public async find(
-    filter: FilterQuery<T>,
-    options: QueryOptions = {},
+    filter: any,
+    options: any = {},
     populate?: string | string[]
   ): Promise<T[]> {
     const query = this.model.find(filter, null, options);
@@ -70,7 +70,7 @@ export class BaseRepository<T extends Document> implements IBaseRepository<T> {
   /**
    * Find a document by its ID and update its fields
    */
-  public async update(id: string, updateQuery: UpdateQuery<T>): Promise<T | null> {
+  public async update(id: string, updateQuery: any): Promise<T | null> {
     return await this.model
       .findByIdAndUpdate(id, updateQuery, { new: true, runValidators: true })
       .exec();

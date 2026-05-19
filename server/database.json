@@ -1,120 +1,61 @@
 {
   "users": [
     {
-      "id": "usr_admin",
       "name": "Sovereign Admin",
       "email": "admin@sleekcart.com",
-      "passwordHash": "pbkdf2_admin",
+      "passwordHash": "pbkdf2_hashed_admin",
       "role": "admin",
       "phone": "+855 12 345 678",
       "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.075Z",
+      "updatedAt": "2026-05-19T04:05:20.075Z"
     },
     {
-      "id": "usr_vendor1",
       "name": "Dara (ElectroWorld Store)",
       "email": "vendor1@sleekcart.com",
-      "passwordHash": "pbkdf2_vendor",
+      "passwordHash": "pbkdf2_hashed_vendor",
       "role": "vendor",
       "phone": "+855 16 888 999",
       "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.075Z",
+      "updatedAt": "2026-05-19T04:05:20.075Z"
     },
     {
-      "id": "usr_vendor2",
-      "name": "Sophy (StyleHub Premium)",
-      "email": "vendor2@sleekcart.com",
-      "passwordHash": "pbkdf2_vendor",
-      "role": "vendor",
-      "phone": "+855 15 777 666",
-      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "usr_vendor3",
-      "name": "Borith (FreshGrains Organic)",
-      "email": "vendor3@sleekcart.com",
-      "passwordHash": "pbkdf2_vendor",
-      "role": "vendor",
-      "phone": "+855 99 555 444",
-      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "usr_rider1",
-      "name": "Piseth Delivery",
-      "email": "rider1@sleekcart.com",
-      "passwordHash": "pbkdf2_rider",
-      "role": "rider",
-      "phone": "+855 93 111 222",
-      "avatarUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "usr_rider2",
-      "name": "Chanthou Express",
-      "email": "rider2@sleekcart.com",
-      "passwordHash": "pbkdf2_rider",
-      "role": "rider",
-      "phone": "+855 77 333 444",
-      "avatarUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "usr_rider3",
-      "name": "Vichea Courier",
-      "email": "rider3@sleekcart.com",
-      "passwordHash": "pbkdf2_rider",
-      "role": "rider",
-      "phone": "+855 88 444 555",
-      "avatarUrl": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "usr_customer",
       "name": "Makara Sok",
       "email": "customer@sleekcart.com",
-      "passwordHash": "pbkdf2_customer",
+      "passwordHash": "pbkdf2_hashed_customer",
       "role": "customer",
       "phone": "+855 10 999 888",
       "avatarUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.075Z",
+      "updatedAt": "2026-05-19T04:05:20.075Z"
+    },
+    {
+      "id": "usr_m9bpcnoil",
+      "name": "Sovereign Vendor",
+      "email": "vendor@sleekcart.com",
+      "passwordHash": "pbkdf2_custom",
+      "role": "vendor",
+      "phone": "+855 12 345 678",
+      "avatarUrl": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
+      "createdAt": "2026-05-19T07:50:56.700Z"
     }
   ],
   "vendors": [
     {
-      "id": "vnd_1",
-      "userId": "usr_vendor1",
-      "storeName": "ElectroWorld Store",
-      "storeLogo": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=100&q=80",
-      "storeDescription": "Your premium hub for all things electronic, gadgets, high-fidelity sound systems and smartphones.",
-      "address": "Preah Monivong Blvd (93), Phnom Penh, Cambodia",
-      "status": "active"
-    },
-    {
-      "id": "vnd_2",
-      "userId": "usr_vendor2",
-      "storeName": "StyleHub Premium",
-      "storeLogo": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=100&q=80",
-      "storeDescription": "Curated modern fashion, outfits, streetwear, and premium luxury accessories.",
-      "address": "Sihanouk Blvd (274), Phnom Penh, Cambodia",
-      "status": "active"
-    },
-    {
-      "id": "vnd_3",
-      "userId": "usr_vendor3",
-      "storeName": "FreshGrains Organic",
+      "id": "vnd_y5jc8z5fb",
+      "userId": "usr_m9bpcnoil",
+      "storeName": "Sovereign Vendor's Store",
       "storeLogo": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=100&q=80",
-      "storeDescription": "Locally grown organic farm fruits, fresh green groceries, healthy grains, and dairy products.",
-      "address": "Mao Tse Toung Blvd (245), Phnom Penh, Cambodia",
+      "storeDescription": "Welcome to our shop! Enjoy high quality listings.",
+      "address": "Phnom Penh Center, Cambodia",
       "status": "active"
     }
   ],
   "products": [
     {
-      "id": "prd_1",
       "vendorId": "vnd_1",
-      "categoryId": "cat_electronics",
+      "categoryId": "6a0be180a149a7037437c843",
       "name": "Nebula Pro Wireless Headset",
       "description": "Experience ultra-premium hybrid active noise cancellation (ANC), 60-hour battery life, spatial audio, and high-fidelity sound drivers wrapped in lightweight premium carbon-fiber leather.",
       "price": 189,
@@ -123,40 +64,26 @@
       "rating": 4.8,
       "isFeatured": true,
       "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-16T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.080Z",
+      "updatedAt": "2026-05-19T04:05:20.080Z"
     },
     {
-      "id": "prd_2",
       "vendorId": "vnd_1",
-      "categoryId": "cat_electronics",
+      "categoryId": "6a0be180a149a7037437c843",
       "name": "Apex Mechanical Keyboard",
-      "description": "Hot-swappable tactile linear switches, dual-shot PBT keycaps, dynamic per-key sound dampening, custom RGB matrix lighting, and seamless triple-mode connection (2.4Ghz, Bluetooth, USB-C).",
+      "description": "Hot-swappable tactile linear switches, dual-shot PBT keycaps, dynamic per-key sound dampening, custom RGB matrix lighting, and seamless triple-mode connection.",
       "price": 120,
       "compareAtPrice": 150,
       "stock": 30,
       "rating": 4.6,
       "isFeatured": true,
       "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-14T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.081Z",
+      "updatedAt": "2026-05-19T04:05:20.081Z"
     },
     {
-      "id": "prd_3",
-      "vendorId": "vnd_1",
-      "categoryId": "cat_electronics",
-      "name": "UltraWide 4K IPS Gaming Monitor",
-      "description": "Immersive 34-inch curved screen featuring a rapid 144Hz refresh rate, HDR400 color clarity, absolute 99% sRGB profile, and USB-C power delivery output.",
-      "price": 499,
-      "compareAtPrice": 599,
-      "stock": 12,
-      "rating": 4.9,
-      "isFeatured": false,
-      "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "prd_4",
       "vendorId": "vnd_2",
-      "categoryId": "cat_fashion",
+      "categoryId": "6a0be180a149a7037437c844",
       "name": "Minimalist Sand Suede Trench Coat",
       "description": "Premium tailored slim-fit autumn trench jacket. Water-repellent suede fibers, tortoiseshell button details, custom interior silk linings, and dual windbreak flaps.",
       "price": 135,
@@ -165,26 +92,12 @@
       "rating": 4.7,
       "isFeatured": true,
       "imageUrl": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-17T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.081Z",
+      "updatedAt": "2026-05-19T04:05:20.081Z"
     },
     {
-      "id": "prd_5",
-      "vendorId": "vnd_2",
-      "categoryId": "cat_fashion",
-      "name": "Classic White Leather Sneakers",
-      "description": "Handcrafted full-grain Italian white leather footwear with orthopedic cork insoles and durable vulcanized rubber soles. Timeless streetwear aesthetic.",
-      "price": 89,
-      "compareAtPrice": 110,
-      "stock": 50,
-      "rating": 4.5,
-      "isFeatured": true,
-      "imageUrl": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-09T04:05:11.426Z"
-    },
-    {
-      "id": "prd_6",
       "vendorId": "vnd_3",
-      "categoryId": "cat_groceries",
+      "categoryId": "6a0be180a149a7037437c845",
       "name": "Fresh Organic Berry Medley Box",
       "description": "A hand-selected sweet blend of direct-from-farm strawberries, rich black raspberries, wild blueberries, and plump tart blackberries. 100% pesticide-free.",
       "price": 12.5,
@@ -193,863 +106,81 @@
       "rating": 4.9,
       "isFeatured": true,
       "imageUrl": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    },
-    {
-      "id": "prd_7",
-      "vendorId": "vnd_3",
-      "categoryId": "cat_groceries",
-      "name": "Cold-Pressed Extra Virgin Olive Oil",
-      "description": "Exquisite single-origin Greek olive oil. Cold pressed within hours of harvest to retain healthy antioxidants and a smooth peppery aroma.",
-      "price": 24,
-      "compareAtPrice": 30,
-      "stock": 60,
-      "rating": 4.8,
-      "isFeatured": false,
-      "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80",
-      "createdAt": "2026-05-19T04:05:11.426Z"
+      "createdAt": "2026-05-19T04:05:20.081Z",
+      "updatedAt": "2026-05-19T04:05:20.081Z"
     }
   ],
   "categories": [
     {
-      "id": "cat_electronics",
       "name": "Electronics & Gadgets",
       "slug": "electronics",
-      "icon": "Cpu"
+      "icon": "Cpu",
+      "createdAt": "2026-05-19T04:05:20.061Z",
+      "updatedAt": "2026-05-19T04:05:20.061Z"
     },
     {
-      "id": "cat_fashion",
       "name": "Fashion & Apparel",
       "slug": "fashion",
-      "icon": "Shirt"
+      "icon": "Shirt",
+      "createdAt": "2026-05-19T04:05:20.062Z",
+      "updatedAt": "2026-05-19T04:05:20.062Z"
     },
     {
-      "id": "cat_groceries",
       "name": "Organic Groceries",
       "slug": "groceries",
-      "icon": "ShoppingBag"
+      "icon": "ShoppingBag",
+      "createdAt": "2026-05-19T04:05:20.063Z",
+      "updatedAt": "2026-05-19T04:05:20.063Z"
     },
     {
-      "id": "cat_beauty",
       "name": "Beauty & Cosmetics",
       "slug": "beauty",
-      "icon": "Sparkles"
+      "icon": "Sparkles",
+      "createdAt": "2026-05-19T04:05:20.063Z",
+      "updatedAt": "2026-05-19T04:05:20.063Z"
     },
     {
-      "id": "cat_home",
       "name": "Home & Living",
       "slug": "home-living",
-      "icon": "Home"
+      "icon": "Home",
+      "createdAt": "2026-05-19T04:05:20.063Z",
+      "updatedAt": "2026-05-19T04:05:20.063Z"
     }
   ],
-  "productImages": [
-    {
-      "id": "img_0",
-      "productId": "prd_1",
-      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_1",
-      "productId": "prd_2",
-      "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_2",
-      "productId": "prd_3",
-      "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_3",
-      "productId": "prd_4",
-      "imageUrl": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_4",
-      "productId": "prd_5",
-      "imageUrl": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_5",
-      "productId": "prd_6",
-      "imageUrl": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      "id": "img_6",
-      "productId": "prd_7",
-      "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80"
-    }
-  ],
-  "carts": [
-    {
-      "id": "crt_c91fh74ln",
-      "userId": "usr_088rzf31j",
-      "productId": "prd_1",
-      "quantity": 1,
-      "_id": "6a0bdae2769d3a28112bae85"
-    }
-  ],
+  "productImages": [],
+  "carts": [],
   "orders": [
     {
-      "id": "ord_seeded1",
-      "userId": "usr_customer",
+      "userId": "6a0be180a149a7037437c84a",
       "vendorId": "vnd_1",
-      "totalAmount": 201.5,
+      "items": [
+        {
+          "productId": "6a0be180a149a7037437c84b",
+          "price": 189,
+          "quantity": 1
+        },
+        {
+          "productId": "6a0be180a149a7037437c84c",
+          "price": 120,
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 429,
       "discountAmount": 10,
       "deliveryFee": 2.5,
       "couponCode": "SLEEK10",
-      "status": "delivered",
-      "createdAt": "2026-05-13T04:05:11.426Z"
-    },
-    {
-      "id": "ord_seeded2",
-      "userId": "usr_customer",
-      "vendorId": "vnd_2",
-      "totalAmount": 135,
-      "discountAmount": 0,
-      "deliveryFee": 3.5,
-      "couponCode": "",
-      "status": "delivered",
-      "createdAt": "2026-05-15T04:05:11.426Z"
-    },
-    {
-      "id": "ord_seeded3",
-      "userId": "usr_customer",
-      "vendorId": "vnd_3",
-      "totalAmount": 39,
-      "discountAmount": 3.5,
-      "deliveryFee": 0,
-      "couponCode": "FREEFEES",
-      "status": "delivered",
-      "createdAt": "2026-05-16T04:05:11.426Z"
-    },
-    {
-      "id": "ord_seeded4",
-      "userId": "usr_customer",
-      "vendorId": "vnd_1",
-      "totalAmount": 122.5,
-      "discountAmount": 0,
-      "deliveryFee": 2.5,
-      "couponCode": "",
-      "status": "delivered",
-      "createdAt": "2026-05-17T04:05:11.426Z"
-    },
-    {
-      "id": "ord_seeded5",
-      "userId": "usr_customer",
-      "vendorId": "vnd_2",
-      "totalAmount": 207.5,
-      "discountAmount": 20,
-      "deliveryFee": 3.5,
-      "couponCode": "SAVENEW20",
-      "status": "delivered",
-      "createdAt": "2026-05-18T04:05:11.426Z"
-    }
-  ],
-  "orderItems": [
-    {
-      "id": "item_s1",
-      "orderId": "ord_seeded1",
-      "productId": "prd_1",
-      "price": 189,
-      "quantity": 1
-    },
-    {
-      "id": "item_s2",
-      "orderId": "ord_seeded1",
-      "productId": "prd_6",
-      "price": 12.5,
-      "quantity": 1
-    },
-    {
-      "id": "item_s3",
-      "orderId": "ord_seeded2",
-      "productId": "prd_4",
-      "price": 135,
-      "quantity": 1
-    },
-    {
-      "id": "item_s4",
-      "orderId": "ord_seeded3",
-      "productId": "prd_7",
-      "price": 24,
-      "quantity": 1
-    },
-    {
-      "id": "item_s5",
-      "orderId": "ord_seeded3",
-      "productId": "prd_6",
-      "price": 12.5,
-      "quantity": 1
-    },
-    {
-      "id": "item_s6",
-      "orderId": "ord_seeded4",
-      "productId": "prd_2",
-      "price": 120,
-      "quantity": 1
-    },
-    {
-      "id": "item_s7",
-      "orderId": "ord_seeded5",
-      "productId": "prd_4",
-      "price": 135,
-      "quantity": 1
-    },
-    {
-      "id": "item_s8",
-      "orderId": "ord_seeded5",
-      "productId": "prd_5",
-      "price": 89,
-      "quantity": 1
-    }
-  ],
-  "payments": [
-    {
-      "id": "pay_s1",
-      "orderId": "ord_seeded1",
-      "paymentMethod": "khqr",
-      "paymentStatus": "paid",
-      "transactionNumber": "TXN-98218-ABA",
-      "amount": 201.5,
-      "createdAt": "2026-05-13T04:05:11.426Z"
-    },
-    {
-      "id": "pay_s2",
-      "orderId": "ord_seeded2",
-      "paymentMethod": "paypal",
-      "paymentStatus": "paid",
-      "transactionNumber": "PAYPAL-881274-PP",
-      "amount": 135,
-      "createdAt": "2026-05-15T04:05:11.426Z"
-    },
-    {
-      "id": "pay_s3",
-      "orderId": "ord_seeded3",
-      "paymentMethod": "bakong",
-      "paymentStatus": "paid",
-      "transactionNumber": "TXN-32918-BAK",
-      "amount": 39,
-      "createdAt": "2026-05-16T04:05:11.426Z"
-    },
-    {
-      "id": "pay_s4",
-      "orderId": "ord_seeded4",
-      "paymentMethod": "wing",
-      "paymentStatus": "paid",
-      "transactionNumber": "TXN-77218-WNG",
-      "amount": 122.5,
-      "createdAt": "2026-05-17T04:05:11.426Z"
-    },
-    {
-      "id": "pay_s5",
-      "orderId": "ord_seeded5",
-      "paymentMethod": "khqr",
-      "paymentStatus": "paid",
-      "transactionNumber": "TXN-44919-ABA",
-      "amount": 207.5,
-      "createdAt": "2026-05-18T04:05:11.426Z"
-    }
-  ],
-  "riders": [
-    {
-      "id": "rdr_1",
-      "userId": "usr_rider1",
-      "vehicleType": "moto",
-      "vehiclePlate": "Phnom Penh 1AI-9999",
-      "status": "active",
-      "currentLat": 11.554,
-      "currentLng": 104.918
-    },
-    {
-      "id": "rdr_2",
-      "userId": "usr_rider2",
-      "vehicleType": "tuktuk",
-      "vehiclePlate": "Phnom Penh 2CC-8888",
-      "status": "active",
-      "currentLat": 11.562,
-      "currentLng": 104.935
-    },
-    {
-      "id": "rdr_3",
-      "userId": "usr_rider3",
-      "vehicleType": "car",
-      "vehiclePlate": "Phnom Penh 2AB-7777",
-      "status": "offline",
-      "currentLat": 11.545,
-      "currentLng": 104.92
-    }
-  ],
-  "deliveries": [
-    {
-      "id": "del_s1",
-      "orderId": "ord_seeded1",
-      "riderId": "rdr_1",
-      "receiverName": "Makara Sok",
-      "receiverPhone": "+855 10 999 888",
-      "receiverEmail": "customer@sleekcart.com",
-      "deliveryAddress": "House 14B, Street 310, Boeung Keng Kang 1",
-      "provinceCity": "Phnom Penh",
-      "districtKhan": "Boeung Keng Kang",
-      "communeSangkat": "Boeung Keng Kang Ti Muoy",
-      "postalCode": "120101",
-      "latitude": 11.5512,
-      "longitude": 104.9221,
-      "deliveryStatus": "delivered",
-      "deliveryFee": 2.5,
-      "estimatedDeliveryTime": "25",
-      "trackingNumber": "TRK-98127391",
-      "deliveryNotes": "Please call 10 minutes before arrival."
-    },
-    {
-      "id": "del_s2",
-      "orderId": "ord_seeded2",
-      "riderId": "rdr_2",
-      "receiverName": "Makara Sok",
-      "receiverPhone": "+855 10 999 888",
-      "receiverEmail": "customer@sleekcart.com",
-      "deliveryAddress": "Vattanac Tower Floor 18, Preah Monivong",
-      "provinceCity": "Phnom Penh",
-      "districtKhan": "Daun Penh",
-      "communeSangkat": "Wat Phnom",
-      "postalCode": "120211",
-      "latitude": 11.5721,
-      "longitude": 104.9202,
-      "deliveryStatus": "delivered",
-      "deliveryFee": 3.5,
-      "estimatedDeliveryTime": "30",
-      "trackingNumber": "TRK-77123992",
-      "deliveryNotes": "Drop at the receptionist desk on ground floor."
-    },
-    {
-      "id": "del_s3",
-      "orderId": "ord_seeded3",
-      "riderId": "rdr_1",
-      "receiverName": "Makara Sok",
-      "receiverPhone": "+855 10 999 888",
-      "receiverEmail": "customer@sleekcart.com",
-      "deliveryAddress": "Condo 102, Street 51, BKK1",
-      "provinceCity": "Phnom Penh",
-      "districtKhan": "Chamkar Mon",
-      "communeSangkat": "Tonle Bassac",
-      "postalCode": "120102",
-      "latitude": 11.554,
-      "longitude": 104.931,
-      "deliveryStatus": "delivered",
-      "deliveryFee": 0,
-      "estimatedDeliveryTime": "20",
-      "trackingNumber": "TRK-29182390",
-      "deliveryNotes": ""
-    },
-    {
-      "id": "del_s4",
-      "orderId": "ord_seeded4",
-      "riderId": "rdr_2",
-      "receiverName": "Makara Sok",
-      "receiverPhone": "+855 10 999 888",
-      "receiverEmail": "customer@sleekcart.com",
-      "deliveryAddress": "TK Avenue Plaza Block 3",
-      "provinceCity": "Phnom Penh",
-      "districtKhan": "Tuol Kork",
-      "communeSangkat": "Boeung Kak Ti Muoy",
-      "postalCode": "120401",
-      "latitude": 11.589,
-      "longitude": 104.897,
-      "deliveryStatus": "delivered",
-      "deliveryFee": 2.5,
-      "estimatedDeliveryTime": "35",
-      "trackingNumber": "TRK-38198273",
-      "deliveryNotes": "Ring bell"
-    },
-    {
-      "id": "del_s5",
-      "orderId": "ord_seeded5",
-      "riderId": "rdr_3",
-      "receiverName": "Makara Sok",
-      "receiverPhone": "+855 10 999 888",
-      "receiverEmail": "customer@sleekcart.com",
-      "deliveryAddress": "Norea City Villa 45, Chbar Ampov",
-      "provinceCity": "Phnom Penh",
-      "districtKhan": "Chbar Ampov",
-      "communeSangkat": "Chbar Ampov Ti Muoy",
-      "postalCode": "120501",
-      "latitude": 11.539,
-      "longitude": 104.954,
-      "deliveryStatus": "delivered",
-      "deliveryFee": 3.5,
-      "estimatedDeliveryTime": "40",
-      "trackingNumber": "TRK-10928374",
-      "deliveryNotes": "Call secondary phone if main is busy."
-    }
-  ],
-  "deliveryTracking": [
-    {
-      "id": "dt_fk3fpgfs5",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "pending",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:32:38.534Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baebd"
-    },
-    {
-      "id": "dt_c1o9548sc",
-      "deliveryId": "del_kdhxnq2g9",
       "status": "confirmed",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:32:47.183Z",
-      "note": "Payment successfully cleared. Order queued for Packing & Shipping.",
-      "_id": "6a0bdae2769d3a28112baebe"
-    },
-    {
-      "id": "dt_90bsqlo93",
-      "deliveryId": "del_px5k2z0k2",
-      "status": "pending",
-      "latitude": 11.538057,
-      "longitude": 104.967579,
-      "timestamp": "2026-05-18T13:48:12.731Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baebf"
-    },
-    {
-      "id": "dt_1znh9usdz",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "pending",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:48:40.551Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baec0"
-    },
-    {
-      "id": "dt_a044bxemw",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "confirmed",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:48:44.899Z",
-      "note": "Payment successfully cleared. Order queued for Packing & Shipping.",
-      "_id": "6a0bdae2769d3a28112baec1"
-    },
-    {
-      "id": "dt_5rlae3w3m",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "packing",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:49:38.116Z",
-      "note": "Rider MOTO (PP 1AI-5595) is assigned and driving to vendor for pickup.",
-      "_id": "6a0bdae2769d3a28112baec2"
-    },
-    {
-      "id": "dt_f74xc23um",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "packing",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:49:45.609Z",
-      "note": "Rider MOTO (PP 1AI-5595) is assigned and driving to vendor for pickup.",
-      "_id": "6a0bdae2769d3a28112baec3"
-    },
-    {
-      "id": "dt_2hua3ez57",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:49:49.684Z",
-      "note": "Packages processed. Transit to final destination initiated.",
-      "_id": "6a0bdae2769d3a28112baec4"
-    },
-    {
-      "id": "dt_rjctqad1x",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:49:51.868Z",
-      "note": "Rider is carrying items and starting GPS navigation path.",
-      "_id": "6a0bdae2769d3a28112baec5"
-    },
-    {
-      "id": "dt_tn82il5ks",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:49:53.292Z",
-      "note": "Items successfully handed over to receiver.",
-      "_id": "6a0bdae2769d3a28112baec6"
-    },
-    {
-      "id": "dt_4oyfo5l7x",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:50:06.873Z",
-      "note": "Rider picked up packages from the vendor and is route-planning.",
-      "_id": "6a0bdae2769d3a28112baec7"
-    },
-    {
-      "id": "dt_8z8zzmknt",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:50:29.384Z",
-      "note": "Rider is approaching your street intersection.",
-      "_id": "6a0bdae2769d3a28112baec8"
-    },
-    {
-      "id": "dt_i8dkywnwd",
-      "deliveryId": "del_kdhxnq2g9",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:50:53.397Z",
-      "note": "Order successfully delivered to customer!",
-      "_id": "6a0bdae2769d3a28112baec9"
-    },
-    {
-      "id": "dt_g0fatlb2d",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "pending",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:53:59.205Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baeca"
-    },
-    {
-      "id": "dt_cw1jnon97",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "confirmed",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:54:04.020Z",
-      "note": "Payment successfully cleared. Order queued for Packing & Shipping.",
-      "_id": "6a0bdae2769d3a28112baecb"
-    },
-    {
-      "id": "dt_3r64pf80l",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "pending",
-      "latitude": 11.55644,
-      "longitude": 104.935306,
-      "timestamp": "2026-05-18T13:54:56.477Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baecc"
-    },
-    {
-      "id": "dt_ucj5f6g5r",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "confirmed",
-      "latitude": 11.55644,
-      "longitude": 104.935306,
-      "timestamp": "2026-05-18T13:55:00.540Z",
-      "note": "Payment successfully cleared. Order queued for Packing & Shipping.",
-      "_id": "6a0bdae2769d3a28112baecd"
-    },
-    {
-      "id": "dt_0vm7parys",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "packing",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:55:22.253Z",
-      "note": "Rider MOTO (PP 1AI-5595) is assigned and driving to vendor for pickup.",
-      "_id": "6a0bdae2769d3a28112baece"
-    },
-    {
-      "id": "dt_s9duj3gk0",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:55:25.460Z",
-      "note": "Packages processed. Transit to final destination initiated.",
-      "_id": "6a0bdae2769d3a28112baecf"
-    },
-    {
-      "id": "dt_torwh9s2i",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:55:27.883Z",
-      "note": "Rider is carrying items and starting GPS navigation path.",
-      "_id": "6a0bdae2769d3a28112baed0"
-    },
-    {
-      "id": "dt_4tlsypcg2",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:55:32.681Z",
-      "note": "Items successfully handed over to receiver.",
-      "_id": "6a0bdae2769d3a28112baed1"
-    },
-    {
-      "id": "dt_pma8mdyhh",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:55:42.893Z",
-      "note": "Rider picked up packages from the vendor and is route-planning.",
-      "_id": "6a0bdae2769d3a28112baed2"
-    },
-    {
-      "id": "dt_nx0b5qgc4",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:56:05.410Z",
-      "note": "Rider is approaching your street intersection.",
-      "_id": "6a0bdae2769d3a28112baed3"
-    },
-    {
-      "id": "dt_f7lz58bmj",
-      "deliveryId": "del_dvkkq39tw",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T13:56:29.419Z",
-      "note": "Order successfully delivered to customer!",
-      "_id": "6a0bdae2769d3a28112baed4"
-    },
-    {
-      "id": "dt_uw74tayt6",
-      "deliveryId": "del_p75b8zi19",
-      "status": "pending",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T14:07:59.500Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baed5"
-    },
-    {
-      "id": "dt_5y4kefm0j",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "packing",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T14:08:23.882Z",
-      "note": "Rider MOTO (PP 1AI-5595) is assigned and driving to vendor for pickup.",
-      "_id": "6a0bdae2769d3a28112baed6"
-    },
-    {
-      "id": "dt_37609bdxp",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T14:08:29.048Z",
-      "note": "Packages processed. Transit to final destination initiated.",
-      "_id": "6a0bdae2769d3a28112baed7"
-    },
-    {
-      "id": "dt_us74cfhjb",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-18T14:08:32.520Z",
-      "note": "Rider is carrying items and starting GPS navigation path.",
-      "_id": "6a0bdae2769d3a28112baed8"
-    },
-    {
-      "id": "dt_a362q3399",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "delivered",
-      "latitude": 11.556402,
-      "longitude": 104.9285553,
-      "timestamp": "2026-05-18T14:08:36.014Z",
-      "note": "Items successfully handed over to receiver.",
-      "_id": "6a0bdae2769d3a28112baed9"
-    },
-    {
-      "id": "dt_r68ciak1a",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "shipping",
-      "latitude": 11.55641,
-      "longitude": 104.92997650000001,
-      "timestamp": "2026-05-18T14:08:47.525Z",
-      "note": "Rider picked up packages from the vendor and is route-planning.",
-      "_id": "6a0bdae2769d3a28112baeda"
-    },
-    {
-      "id": "dt_rruoca6vh",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "out_for_delivery",
-      "latitude": 11.556425,
-      "longitude": 104.93264125,
-      "timestamp": "2026-05-18T14:09:10.035Z",
-      "note": "Rider is approaching your street intersection.",
-      "_id": "6a0bdae2769d3a28112baedb"
-    },
-    {
-      "id": "dt_kafz791kl",
-      "deliveryId": "del_rhaf56o2n",
-      "status": "delivered",
-      "latitude": 11.55644,
-      "longitude": 104.935306,
-      "timestamp": "2026-05-18T14:09:34.044Z",
-      "note": "Order successfully delivered to customer!",
-      "_id": "6a0bdae2769d3a28112baedc"
-    },
-    {
-      "id": "dt_m6fg4tx0t",
-      "deliveryId": "del_w6qo0tu9d",
-      "status": "pending",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T01:30:01.421Z",
-      "note": "Order created. Awaiting online payment clearance.",
-      "_id": "6a0bdae2769d3a28112baedd"
-    },
-    {
-      "id": "dt_768xvpyix",
-      "deliveryId": "del_w6qo0tu9d",
-      "status": "confirmed",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T01:30:06.642Z",
-      "note": "Payment successfully cleared. Order queued for Packing & Shipping.",
-      "_id": "6a0bdae2769d3a28112baede"
-    },
-    {
-      "id": "dt_p03q2ftas",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "shipping",
-      "latitude": 11.55644,
-      "longitude": 104.935306,
-      "timestamp": "2026-05-19T02:10:36.860Z",
-      "note": "Packages processed. Transit to final destination initiated.",
-      "_id": "6a0bdae2769d3a28112baedf"
-    },
-    {
-      "id": "dt_kk9zyhx5f",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "out_for_delivery",
-      "latitude": 11.55644,
-      "longitude": 104.935306,
-      "timestamp": "2026-05-19T02:10:47.147Z",
-      "note": "Rider is carrying items and starting GPS navigation path.",
-      "_id": "6a0bdae2769d3a28112baee0"
-    },
-    {
-      "id": "dt_hujuzzct2",
-      "deliveryId": "del_w6qo0tu9d",
-      "status": "packing",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T02:10:50.811Z",
-      "note": "Rider MOTO (PP 1AI-5595) is assigned and driving to vendor for pickup.",
-      "_id": "6a0bdae2769d3a28112baee1"
-    },
-    {
-      "id": "dt_vg3covt9y",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T02:10:53.763Z",
-      "note": "Items successfully handed over to receiver.",
-      "_id": "6a0bdae2769d3a28112baee2"
-    },
-    {
-      "id": "dt_t2xuwxvg0",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "shipping",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T02:11:02.155Z",
-      "note": "Rider picked up packages from the vendor and is route-planning.",
-      "_id": "6a0bdae2769d3a28112baee3"
-    },
-    {
-      "id": "dt_w16v86joh",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "out_for_delivery",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T02:11:24.659Z",
-      "note": "Rider is approaching your street intersection.",
-      "_id": "6a0bdae2769d3a28112baee4"
-    },
-    {
-      "id": "dt_30wm19cfp",
-      "deliveryId": "del_qr55pc4xt",
-      "status": "delivered",
-      "latitude": 11.5564,
-      "longitude": 104.9282,
-      "timestamp": "2026-05-19T02:11:48.687Z",
-      "note": "Order successfully delivered to customer!",
-      "_id": "6a0bdae2769d3a28112baee5"
+      "createdAt": "2026-05-19T04:05:20.088Z",
+      "updatedAt": "2026-05-19T04:05:20.088Z"
     }
   ],
-  "coupons": [
-    {
-      "id": "cp_1",
-      "code": "SLEEK10",
-      "discountType": "percentage",
-      "discountValue": 10,
-      "minSpend": 20,
-      "expiryDate": "2027-12-31T23:59:59Z",
-      "active": true
-    },
-    {
-      "id": "cp_2",
-      "code": "FREEFEES",
-      "discountType": "fixed",
-      "discountValue": 3.5,
-      "minSpend": 15,
-      "expiryDate": "2027-12-31T23:59:59Z",
-      "active": true
-    },
-    {
-      "id": "cp_3",
-      "code": "SAVENEW20",
-      "discountType": "fixed",
-      "discountValue": 20,
-      "minSpend": 100,
-      "expiryDate": "2027-12-31T23:59:59Z",
-      "active": true
-    }
-  ],
-  "notifications": [
-    {
-      "id": "not_1",
-      "userId": "usr_customer",
-      "title": "Welcome to SleekCart!",
-      "message": "Explore our multi-vendor shop and experience our real-time high-fidelity delivery tracker.",
-      "type": "system",
-      "isRead": false,
-      "createdAt": "2026-05-19T04:05:11.426Z"
-    }
-  ],
-  "reviews": [
-    {
-      "id": "rev_1",
-      "userId": "usr_customer",
-      "productId": "prd_1",
-      "rating": 5,
-      "comment": "Hands down the best headphones I have ever owned! The ANC completely blocks out city traffic and acoustic instrument separation is perfect.",
-      "createdAt": "2026-05-18T04:05:11.426Z"
-    },
-    {
-      "id": "rev_2",
-      "userId": "usr_customer",
-      "productId": "prd_4",
-      "rating": 4,
-      "comment": "Stunning trench coat! Tailoring is immaculate and fits perfectly. The material is thick, premium, and keeps the wind out.",
-      "createdAt": "2026-05-17T04:05:11.426Z"
-    }
-  ],
+  "orderItems": [],
+  "payments": [],
+  "riders": [],
+  "deliveries": [],
+  "deliveryTracking": [],
+  "coupons": [],
+  "notifications": [],
+  "reviews": [],
   "wishlists": []
 }

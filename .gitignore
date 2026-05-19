@@ -17,6 +17,7 @@ web_modules/
 
 # Output build directory
 dist/
+dist-server/
 dist-ssr/
 *.local
 

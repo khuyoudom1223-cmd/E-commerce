@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import { db } from './db.js';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
+import { db, User, Review, Order, Delivery, Payment, Product } from './db.js';
 import dotenv from 'dotenv';
 // MongoDB Clean Architecture imports
 import { dbConnection } from './database/connection.js';
@@ -11,12 +14,38 @@ import { apiRouter } from './routes/api.routes.js';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1); // For Render deployment
+
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'sleekcart-super-secret-key-2026';
 
-app.use(cors());
+// Security and Logging Middlewares
+app.use(helmet());
+app.use(morgan('combined'));
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', limiter);
+
+// CORS Configuration
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true
+}));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Health Check Endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Register Clean Architecture MongoDB REST API router
 app.use('/api/v2', apiRouter);
@@ -1549,7 +1578,7 @@ app.get('/api/tracking/stream/:orderId', (req, res) => {
     let riderLat = delivery?.latitude || 11.5564;
     let riderLng = delivery?.longitude || 104.9282;
     let eta = delivery?.estimatedDeliveryTime || '30';
-    let status = delivery?.deliveryStatus || 'pending';
+    let status: string = delivery?.deliveryStatus || 'pending';
 
     if (sim) {
       riderLat = sim.currentLat;
@@ -1615,6 +1644,22 @@ process.on('SIGINT', async () => {
   process.exit();
 });
 
+// Global Error Handler Middleware
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('[Unhandled Error]:', err);
+  
+  const status = err.status || err.statusCode || 500;
+  const message = process.env.NODE_ENV === 'production' 
+    ? 'Internal Server Error' 
+    : err.message || 'Internal Server Error';
+
+  res.status(status).json({
+    success: false,
+    message,
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+  });
+});
+
 // --- RUN THE APPLICATION ---
 const startServer = async () => {
   try {
@@ -1634,6 +1679,19 @@ const startServer = async () => {
       console.log(` Clean Architecture MongoDB initialized.`);
       console.log(` Real-time GPS Tracker simulation armed.`);
       console.log(`========================================`);
+
+      // Self-ping to prevent cold starts on Render free tier
+      if (process.env.RENDER_EXTERNAL_URL) {
+        console.log(`[Self-Ping] Initialized target: ${process.env.RENDER_EXTERNAL_URL}/health`);
+        setInterval(async () => {
+          try {
+            const res = await fetch(`${process.env.RENDER_EXTERNAL_URL}/health`);
+            console.log(`[Self-Ping] Sent. Status: ${res.status}`);
+          } catch (err: any) {
+            console.error(`[Self-Ping] Failed:`, err.message);
+          }
+        }, 10 * 60 * 1000); // Ping every 10 minutes (Render sleeps after 15 mins)
+      }
     });
   } catch (err) {
     console.error("Critical: Failed to connect to MongoDB and start the server:", err);
