@@ -1,6 +1,7 @@
 {
   "users": [
     {
+      "id": "6a0be180a149a7037437c84a",
       "name": "Sovereign Admin",
       "email": "admin@sleekcart.com",
       "passwordHash": "pbkdf2_hashed_admin",
@@ -11,6 +12,7 @@
       "updatedAt": "2026-05-19T04:05:20.075Z"
     },
     {
+      "id": "usr_vendor1",
       "name": "Dara (ElectroWorld Store)",
       "email": "vendor1@sleekcart.com",
       "passwordHash": "pbkdf2_hashed_vendor",
@@ -21,6 +23,7 @@
       "updatedAt": "2026-05-19T04:05:20.075Z"
     },
     {
+      "id": "usr_customer",
       "name": "Makara Sok",
       "email": "customer@sleekcart.com",
       "passwordHash": "pbkdf2_hashed_customer",
@@ -64,6 +67,7 @@
   ],
   "products": [
     {
+      "id": "6a0be180a149a7037437c84b",
       "vendorId": "vnd_1",
       "categoryId": "6a0be180a149a7037437c843",
       "name": "Nebula Pro Wireless Headset",
@@ -78,6 +82,7 @@
       "updatedAt": "2026-05-19T04:05:20.080Z"
     },
     {
+      "id": "6a0be180a149a7037437c84c",
       "vendorId": "vnd_1",
       "categoryId": "6a0be180a149a7037437c843",
       "name": "Apex Mechanical Keyboard",
@@ -92,6 +97,7 @@
       "updatedAt": "2026-05-19T04:05:20.081Z"
     },
     {
+      "id": "6a0be180a149a7037437c84d",
       "vendorId": "vnd_2",
       "categoryId": "6a0be180a149a7037437c844",
       "name": "Minimalist Sand Suede Trench Coat",
@@ -106,6 +112,7 @@
       "updatedAt": "2026-05-19T04:05:20.081Z"
     },
     {
+      "id": "6a0be180a149a7037437c84e",
       "vendorId": "vnd_3",
       "categoryId": "6a0be180a149a7037437c845",
       "name": "Fresh Organic Berry Medley Box",
@@ -122,6 +129,7 @@
   ],
   "categories": [
     {
+      "id": "6a0be180a149a7037437c843",
       "name": "Electronics & Gadgets",
       "slug": "electronics",
       "icon": "Cpu",
@@ -129,6 +137,7 @@
       "updatedAt": "2026-05-19T04:05:20.061Z"
     },
     {
+      "id": "6a0be180a149a7037437c844",
       "name": "Fashion & Apparel",
       "slug": "fashion",
       "icon": "Shirt",
@@ -136,6 +145,7 @@
       "updatedAt": "2026-05-19T04:05:20.062Z"
     },
     {
+      "id": "6a0be180a149a7037437c845",
       "name": "Organic Groceries",
       "slug": "groceries",
       "icon": "ShoppingBag",
@@ -143,6 +153,7 @@
       "updatedAt": "2026-05-19T04:05:20.063Z"
     },
     {
+      "id": "6a0be180a149a7037437c846",
       "name": "Beauty & Cosmetics",
       "slug": "beauty",
       "icon": "Sparkles",
@@ -150,6 +161,7 @@
       "updatedAt": "2026-05-19T04:05:20.063Z"
     },
     {
+      "id": "6a0be180a149a7037437c847",
       "name": "Home & Living",
       "slug": "home-living",
       "icon": "Home",
