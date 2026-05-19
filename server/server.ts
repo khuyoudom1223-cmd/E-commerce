@@ -2,14 +2,25 @@ import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import { db } from './db.js';
+import dotenv from 'dotenv';
+// MongoDB Clean Architecture imports
+import { dbConnection } from './database/connection.js';
+import { seedDatabase } from './database/seed.js';
+import { apiRouter } from './routes/api.routes.js';
+
+dotenv.config();
 
 const app = express();
-const PORT = 5000;
-const JWT_SECRET = 'sleekcart-super-secret-key-2026';
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'sleekcart-super-secret-key-2026';
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Register Clean Architecture MongoDB REST API router
+app.use('/api/v2', apiRouter);
+
 
 // --- MIDDLEWARES ---
 
@@ -112,7 +123,7 @@ function startRiderSimulation(orderId: string, riderId: string) {
       // Completed!
       clearInterval(sim.intervalId!);
       sim.status = 'delivered';
-      
+
       // Update DB
       const dbOrder = db.orders.find(o => o.id === orderId);
       if (dbOrder) dbOrder.status = 'delivered';
@@ -453,7 +464,7 @@ app.post('/api/profile/avatar', authenticateToken, (req: any, res) => {
 // Order History
 app.get('/api/profile/orders', authenticateToken, (req: any, res) => {
   const orders = db.orders.filter(o => o.userId === req.user.id);
-  
+
   // Populate orders with payments, delivery tracking and order items
   const populated = orders.map(order => {
     const items = db.orderItems.filter(oi => oi.orderId === order.id).map(item => {
@@ -903,11 +914,11 @@ app.post('/api/payments/verify', (req, res) => {
   // Update Statuses
   payment.paymentStatus = 'paid';
   payment.transactionNumber = transactionNumber || 'TXN-' + Math.floor(10000 + Math.random() * 90000) + '-PAID';
-  
+
   order.status = 'confirmed';
   if (delivery) {
     delivery.deliveryStatus = 'confirmed';
-    
+
     // Add tracking point
     db.deliveryTracking.push({
       id: db.generateId('dt'),
@@ -1276,7 +1287,7 @@ app.get('/api/admin/analytics', authenticateToken, requireRole(['admin']), (req,
     const paidAmount = payments.find(p => p.orderId === o.id && p.paymentStatus === 'paid')?.amount || 0;
     salesByDateMap.set(dateStr, (salesByDateMap.get(dateStr) || 0) + paidAmount);
   });
-  
+
   const salesHistory = Array.from(salesByDateMap.entries()).map(([date, revenue]) => ({
     date,
     revenue: parseFloat(revenue.toFixed(2))
@@ -1405,7 +1416,7 @@ app.post('/api/admin/orders/:orderId/assign-rider', authenticateToken, requireRo
 // Admin/Vendor Product CRUD (Add Product)
 app.post('/api/products', authenticateToken, requireRole(['admin', 'vendor']), (req: any, res) => {
   const { name, description, price, compareAtPrice, stock, categoryId, imageUrl, vendorId } = req.body;
-  
+
   // Find vendor profile associated with this user
   const vendor = db.vendors.find(v => v.userId === req.user.id);
   const activeVendorId = vendorId || (vendor ? vendor.id : 'vnd_1');
@@ -1432,7 +1443,7 @@ app.post('/api/products', authenticateToken, requireRole(['admin', 'vendor']), (
 
 app.post('/api/admin/products', authenticateToken, requireRole(['admin', 'vendor']), (req, res) => {
   const { name, description, price, compareAtPrice, stock, categoryId, imageUrl, vendorId } = req.body;
-  
+
   const newProduct: Product = {
     id: db.generateId('prd'),
     vendorId: vendorId || 'vnd_1',
@@ -1488,7 +1499,7 @@ app.get('/api/admin/orders', authenticateToken, requireRole(['admin']), (req, re
     const payment = db.payments.find(p => p.orderId === order.id);
     const vendor = db.vendors.find(v => v.id === order.vendorId);
     const customer = db.users.find(u => u.id === order.userId);
-    
+
     let rider = null;
     if (delivery && delivery.riderId) {
       const r = db.riders.find(riderObj => riderObj.id === delivery.riderId);
@@ -1508,7 +1519,7 @@ app.get('/api/admin/orders', authenticateToken, requireRole(['admin']), (req, re
       rider
     };
   });
-  
+
   populated.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   res.json(populated);
 });
@@ -1533,7 +1544,7 @@ app.get('/api/tracking/stream/:orderId', (req, res) => {
     const sim = activeSimulations.get(orderId);
     const delivery = db.deliveries.find(d => d.orderId === orderId);
     const order = db.orders.find(o => o.id === orderId);
-    
+
     // Find active rider coordinate
     let riderLat = delivery?.latitude || 11.5564;
     let riderLng = delivery?.longitude || 104.9282;
@@ -1590,33 +1601,44 @@ app.get('/api/tracking/stream/:orderId', (req, res) => {
 });
 
 // --- SHUTDOWN CLEANUP ---
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
   // Clear any open intervals
   activeSimulations.forEach(sim => {
     if (sim.intervalId) clearInterval(sim.intervalId);
   });
   console.log('Shutting down API server safely.');
+  try {
+    await dbConnection.disconnect();
+  } catch (err) {
+    console.error('Error during shutdown database cleanup:', err);
+  }
   process.exit();
 });
 
 // --- RUN THE APPLICATION ---
-db.connectMongo()
-  .then(() => {
+const startServer = async () => {
+  try {
+    // 1. Connect to standard MongoDB Clean Architecture layer via Mongoose
+    await dbConnection.connect();
+
+    // 2. Perform database seeding checks for the example models
+    await seedDatabase();
+
+    // 3. Connect to local fallback in-memory / MongoClient database (for existing client support)
+    await db.connect();
+
+    // 4. Start listening
     app.listen(PORT, () => {
       console.log(`========================================`);
-      console.log(` Dom Store backend operational on PORT ${PORT}`);
-      console.log(` Connected to MongoDB successfully.`);
+      console.log(` SleekCart backend operational on PORT ${PORT}`);
+      console.log(` Clean Architecture MongoDB initialized.`);
       console.log(` Real-time GPS Tracker simulation armed.`);
       console.log(`========================================`);
     });
-  })
-  .catch(err => {
-    console.error('Failed to connect to MongoDB, falling back to local file DB.', err);
-    app.listen(PORT, () => {
-      console.log(`========================================`);
-      console.log(` Dom Store backend operational on PORT ${PORT}`);
-      console.log(` Connected to fallback local database.`);
-      console.log(` Real-time GPS Tracker simulation armed.`);
-      console.log(`========================================`);
-    });
-  });
+  } catch (err) {
+    console.error("Critical: Failed to connect to MongoDB and start the server:", err);
+    process.exit(1);
+  }
+};
+
+startServer();

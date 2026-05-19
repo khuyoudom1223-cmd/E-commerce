@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -194,9 +198,9 @@ export interface DatabaseSchema {
 // --- DATABASE CONTROLLER CLASS ---
 
 class Database {
-  private data: DatabaseSchema;
-  private mongoDb: Db | null = null;
-  private isSaving = false;
+  public data: DatabaseSchema;
+  private client: MongoClient | null = null;
+  private dbInstance: any = null;
 
   constructor() {
     this.data = this.getEmptySchema();
@@ -224,49 +228,68 @@ class Database {
     };
   }
 
-  // Connect to MongoDB and synchronize collections
-  public async connectMongo(): Promise<void> {
+  // Connect to MongoDB
+  public async connect(): Promise<void> {
+    const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sleekcart';
+    console.log(`[MongoDB] Connecting to ${uri}...`);
     try {
-      const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/domstore';
-      console.log(`Connecting to MongoDB at: ${MONGO_URI}...`);
-      const client = new MongoClient(MONGO_URI);
-      await client.connect();
-      this.mongoDb = client.db();
-      console.log('MongoDB connected successfully!');
-
-      // Synchronize/load collections from MongoDB
-      const collections = await this.mongoDb.listCollections().toArray();
-      const collectionNames = collections.map(c => c.name);
-
-      const schemaKeys = Object.keys(this.getEmptySchema()) as Array<keyof DatabaseSchema>;
-
-      for (const key of schemaKeys) {
-        if (collectionNames.includes(key)) {
-          // Collection exists, load data from it
-          const docs = await this.mongoDb.collection(key).find({}).toArray();
-          // Map _id away if present, keep standard schema
-          this.data[key] = docs.map(doc => {
-            const { _id, ...rest } = doc;
-            return rest as any;
-          });
-          console.log(`Loaded ${this.data[key].length} items for collection '${key}' from MongoDB.`);
-        } else {
-          // Collection doesn't exist yet, seed it if we have local memory data
-          if (this.data[key].length > 0) {
-            console.log(`Creating and seeding collection '${key}' in MongoDB with ${this.data[key].length} items...`);
-            await this.mongoDb.collection(key).insertMany(this.data[key]);
-          }
-        }
-      }
-      // Re-save local database to reflect MongoDB sync state
-      this.saveLocal();
+      this.client = await MongoClient.connect(uri);
+      this.dbInstance = this.client.db();
+      console.log('[MongoDB] Connected successfully.');
+      await this.loadFromMongo();
     } catch (err) {
-      console.error('Error connecting to MongoDB, falling back to local database file', err);
-      throw err;
+      console.error('[MongoDB] Connection failed, using local database.json fallback:', err);
     }
   }
 
-  // Load database from file
+  // Load from MongoDB
+  private async loadFromMongo(): Promise<void> {
+    if (!this.dbInstance) return;
+
+    try {
+      const collections = await this.dbInstance.listCollections().toArray();
+      const collectionNames = collections.map((c: any) => c.name);
+
+      const tables: Array<keyof DatabaseSchema> = [
+        'users', 'vendors', 'products', 'categories', 'productImages',
+        'carts', 'orders', 'orderItems', 'payments', 'riders',
+        'deliveries', 'deliveryTracking', 'coupons', 'notifications',
+        'reviews', 'wishlists'
+      ];
+
+      // Check if users collection exists and has documents
+      let needsSeeding = true;
+      if (collectionNames.includes('users')) {
+        const count = await this.dbInstance.collection('users').countDocuments();
+        if (count > 0) {
+          needsSeeding = false;
+        }
+      }
+
+      if (needsSeeding) {
+        console.log('[MongoDB] Database is empty. Seeding with premium e-commerce content...');
+        this.seed(); // This seeds the in-memory array and triggers save() which saves to Mongo
+      } else {
+        console.log('[MongoDB] Loading data into memory...');
+        for (const table of tables) {
+          if (collectionNames.includes(table)) {
+            const docs = await this.dbInstance.collection(table).find({}).toArray();
+            this.data[table] = docs.map((doc: any) => {
+              const { _id, ...rest } = doc;
+              return rest;
+            }) as any;
+          } else {
+            this.data[table] = [];
+          }
+        }
+        console.log('[MongoDB] Data successfully loaded into memory.');
+      }
+    } catch (err) {
+      console.error('[MongoDB] Error loading data from MongoDB:', err);
+    }
+  }
+
+  // Load database from file (local fallback)
   public load(): void {
     try {
       if (fs.existsSync(DB_PATH)) {
@@ -274,51 +297,62 @@ class Database {
         this.data = JSON.parse(fileContent);
       } else {
         this.data = this.getEmptySchema();
-        this.save();
+        this.saveLocal();
         this.seed();
       }
     } catch (err) {
-      console.error('Error loading database, initializing empty', err);
+      console.error('Error loading database from file, initializing empty', err);
       this.data = this.getEmptySchema();
     }
   }
 
-  // Save database to file and MongoDB
+  // Save database
   public save(): void {
+    // Save to local database.json file as fallback/log
     this.saveLocal();
-    this.saveMongo();
+
+    // Asynchronously save to MongoDB in the background
+    if (this.dbInstance) {
+      this.saveToMongo().catch(err => {
+        console.error('[MongoDB] Error saving in background:', err);
+      });
+    }
   }
 
+  // Save to local file
   private saveLocal(): void {
     try {
-      // Ensure directory exists
       const dir = path.dirname(DB_PATH);
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
       fs.writeFileSync(DB_PATH, JSON.stringify(this.data, null, 2), 'utf-8');
     } catch (err) {
-      console.error('Error saving database to file', err);
+      console.error('Error saving database to file:', err);
     }
   }
 
-  private async saveMongo(): Promise<void> {
-    if (!this.mongoDb || this.isSaving) return;
-    this.isSaving = true;
-    try {
-      const schemaKeys = Object.keys(this.data) as Array<keyof DatabaseSchema>;
-      for (const key of schemaKeys) {
-        const collection = this.mongoDb.collection(key);
-        // Replace all documents in the collection to match local cache state
-        await collection.deleteMany({});
-        if (this.data[key].length > 0) {
-          await collection.insertMany(this.data[key]);
-        }
+  // Async save to MongoDB
+  public async saveToMongo(): Promise<void> {
+    if (!this.dbInstance) return;
+
+    const tables: Array<keyof DatabaseSchema> = [
+      'users', 'vendors', 'products', 'categories', 'productImages',
+      'carts', 'orders', 'orderItems', 'payments', 'riders',
+      'deliveries', 'deliveryTracking', 'coupons', 'notifications',
+      'reviews', 'wishlists'
+    ];
+
+    for (const table of tables) {
+      const collection = this.dbInstance.collection(table);
+      // Drop all documents
+      await collection.deleteMany({});
+      const docs = this.data[table];
+      if (docs && docs.length > 0) {
+        // Clone to avoid MongoDB driver modifying the original memory objects by adding _id
+        const clonedDocs = JSON.parse(JSON.stringify(docs));
+        await collection.insertMany(clonedDocs);
       }
-    } catch (err) {
-      console.error('Error synchronizing database to MongoDB', err);
-    } finally {
-      this.isSaving = false;
     }
   }
 
@@ -348,19 +382,19 @@ class Database {
   // Database Seeder
   public seed(): void {
     console.log('Seeding Database with premium e-commerce content...');
-    
+
     // 1. Seed Users (with hashed password placeholders: "password" -> direct mock verification)
     const users: User[] = [
       { id: 'usr_admin', name: 'Sovereign Admin', email: 'admin@sleekcart.com', passwordHash: 'pbkdf2_admin', role: 'admin', phone: '+855 12 345 678', avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
-      
+
       { id: 'usr_vendor1', name: 'Dara (ElectroWorld Store)', email: 'vendor1@sleekcart.com', passwordHash: 'pbkdf2_vendor', role: 'vendor', phone: '+855 16 888 999', avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
       { id: 'usr_vendor2', name: 'Sophy (StyleHub Premium)', email: 'vendor2@sleekcart.com', passwordHash: 'pbkdf2_vendor', role: 'vendor', phone: '+855 15 777 666', avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
       { id: 'usr_vendor3', name: 'Borith (FreshGrains Organic)', email: 'vendor3@sleekcart.com', passwordHash: 'pbkdf2_vendor', role: 'vendor', phone: '+855 99 555 444', avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
-      
+
       { id: 'usr_rider1', name: 'Piseth Delivery', email: 'rider1@sleekcart.com', passwordHash: 'pbkdf2_rider', role: 'rider', phone: '+855 93 111 222', avatarUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
       { id: 'usr_rider2', name: 'Chanthou Express', email: 'rider2@sleekcart.com', passwordHash: 'pbkdf2_rider', role: 'rider', phone: '+855 77 333 444', avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
       { id: 'usr_rider3', name: 'Vichea Courier', email: 'rider3@sleekcart.com', passwordHash: 'pbkdf2_rider', role: 'rider', phone: '+855 88 444 555', avatarUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() },
-      
+
       { id: 'usr_customer', name: 'Makara Sok', email: 'customer@sleekcart.com', passwordHash: 'pbkdf2_customer', role: 'customer', phone: '+855 10 999 888', avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80', createdAt: new Date().toISOString() }
     ];
     this.data.users = users;

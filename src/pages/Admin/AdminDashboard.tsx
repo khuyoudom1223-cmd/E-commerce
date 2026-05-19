@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext.tsx';
 import { useLanguage } from '../../context/LanguageContext.tsx';
-import { 
-  ShieldAlert, 
-  Users, 
-  Coins, 
-  Truck, 
-  CheckCircle2, 
-  RefreshCw, 
-  Plus, 
-  FileText, 
+import {
+  ShieldAlert,
+  Users,
+  Coins,
+  Truck,
+  CheckCircle2,
+  RefreshCw,
+  Plus,
+  FileText,
   SlidersHorizontal,
   ChevronRight,
   TrendingUp,
@@ -23,7 +23,7 @@ interface AdminDashboardProps {
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
   const { token } = useAuth();
   const { t } = useLanguage();
-  
+
   // Dashboard states
   const [metrics, setMetrics] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
@@ -37,7 +37,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
   const loadAdminData = () => {
     if (!token) return;
     setLoading(true);
-    
+
     Promise.all([
       fetch('/api/admin/dashboard', { headers: { Authorization: `Bearer ${token}` } }).then(res => res.json()),
       fetch('/api/admin/vendors', { headers: { Authorization: `Bearer ${token}` } }).then(res => res.json())
@@ -64,7 +64,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
         body: JSON.stringify({ status })
       });
       const data = await res.json();
-      
+
       if (res.ok) {
         onAlert(status === 'active' ? 'Merchant store successfully approved!' : 'Merchant store application rejected.', 'success');
         loadAdminData();
@@ -131,7 +131,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
 
   return (
     <div className="pb-16 bg-slate-50 dark:bg-slate-950 px-4 mt-6">
-      
+
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display font-extrabold text-2xl text-slate-800 dark:text-white flex items-center gap-2">
@@ -207,7 +207,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
 
       {/* 2. ADMIN CHARTS BLOCK */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        
+
         {/* Sales trend curved graph (SVG Curved Lines with custom fills!) */}
         <div className="md:col-span-2 glass rounded-3xl p-5 border border-slate-200/50 dark:border-slate-800/60 shadow-sm flex flex-col justify-between">
           <div className="flex justify-between items-center mb-4">
@@ -236,7 +236,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
               <path d="M 0 35 Q 15 25 30 28 T 60 15 T 80 18 T 100 5 L 100 35 Z" fill="url(#chartGradient)" />
               {/* Curve Stroke line */}
               <path d="M 0 35 Q 15 25 30 28 T 60 15 T 80 18 T 100 5" fill="none" stroke="#10b981" strokeWidth="0.75" strokeLinecap="round" />
-              
+
               {/* Graph Nodes */}
               <circle cx="30" cy="28" r="0.8" fill="#10b981" stroke="white" strokeWidth="0.2" />
               <circle cx="60" cy="15" r="0.8" fill="#10b981" stroke="white" strokeWidth="0.2" />
@@ -301,7 +301,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        
+
         {/* 3. Left Columns: manual Dispatch Center orders queue */}
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="glass rounded-3xl p-5 border border-slate-200/50 dark:border-slate-800/60 shadow-sm">
@@ -322,7 +322,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
                   const availableRiders = riders.filter(r => r.isAvailable);
 
                   return (
-                    <div 
+                    <div
                       key={ord.id}
                       className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/40 dark:border-slate-800/60 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm text-xs"
                     >
@@ -376,7 +376,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
             ) : (
               <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-1">
                 {orders.filter(o => o.status === 'delivered').map((item) => (
-                  <div 
+                  <div
                     key={item.id}
                     className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/40 dark:border-slate-800/60 flex items-center justify-between gap-3 shadow-sm text-xs group"
                   >
@@ -414,7 +414,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
             ) : (
               <div className="flex flex-col gap-3">
                 {vendors.filter(v => v.status === 'pending').map((vend) => (
-                  <div 
+                  <div
                     key={vend.id}
                     className="p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/40 dark:border-slate-800/60 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm text-xs"
                   >
@@ -461,15 +461,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
 
           <div className="flex flex-col gap-3 max-h-[380px] overflow-y-auto pr-1">
             {riders.map((rid) => (
-              <div 
+              <div
                 key={rid.id}
                 className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/40 dark:border-slate-800/60 flex flex-col gap-2 shadow-sm text-xs"
               >
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-2">
-                    <img 
-                      src={rid.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=40&q=80'} 
-                      alt="" 
+                    <img
+                      src={rid.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=40&q=80'}
+                      alt=""
                       className="w-8 h-8 rounded-lg object-cover ring-2 ring-emerald-500/10 shrink-0"
                     />
                     <div>
@@ -478,11 +478,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onAlert }) => {
                     </div>
                   </div>
 
-                  <span className={`text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${
-                    rid.isAvailable 
-                      ? 'bg-emerald-500/10 border-emerald-500/15 text-emerald-600 dark:text-emerald-400' 
+                  <span className={`text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${rid.isAvailable
+                      ? 'bg-emerald-500/10 border-emerald-500/15 text-emerald-600 dark:text-emerald-400'
                       : 'bg-rose-500/10 border-rose-500/15 text-rose-600 dark:text-rose-450 animate-pulse'
-                  }`}>
+                    }`}>
                     {rid.isAvailable ? t('admin.fleet_sub') : (t('admin.on_active_trip') || 'On Active Trip')}
                   </span>
                 </div>
